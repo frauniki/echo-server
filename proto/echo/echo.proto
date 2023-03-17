@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package echo;
+option go_package = "github.com/frauniki/echo-server/gen/echo/v1";
+
+import "google/api/annotations.proto";
+
+service EchoService {
+    rpc Get(Empty) returns (Response) {
+        option (google.api.http) = {
+            get: "/"
+        };
+    }
+
+    rpc GetRoute1(Empty) returns (Response) {
+        option (google.api.http) = {
+            get: "/route1"
+        };
+    }
+
+    rpc GetRoute2(Empty) returns (Response) {
+        option (google.api.http) = {
+            get: "/route2"
+        };
+    }
+
+    rpc Stream(stream Empty) returns (stream Response) {}
+}
+
+message Empty {}
+
+message Response {
+    string message = 1;
+    string client_address = 2;
+    map<string, string> metadata = 3;
+}
